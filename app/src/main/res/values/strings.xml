@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Ecommerce App</string>
+    <string name="first_slide">Choose your products</string>
+    <string name="second_slide">Fast Delivery</string>
+    <string name="third_slide">Good Service</string>
+
+    <string name="description1">Welcome to our website - where you can explore a diverse range of products and satisfy your shopping needs with our extensive buying options.</string>
+    <string name="description2">We take pride in offering fast and reliable delivery services to ensure that you receive your purchases in a timely manner and enjoy your shopping experience with us.</string>
+    <string name="description3">At our website, we strive to provide you with exceptional customer service and support, making sure that you have a pleasant and satisfying shopping experience with our high-quality products and services.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
