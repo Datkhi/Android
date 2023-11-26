@@ -2,7 +2,7 @@ package com.example.ecommerceapp.models;
 
 import java.io.Serializable;
 
-public class ShowAllModel implements Serializable {
+public class ProductsModel implements Serializable {
     String img_url;
     String description;
     String name;
@@ -10,10 +10,10 @@ public class ShowAllModel implements Serializable {
     int price;
     String type;
 
-    public ShowAllModel() {
+    public ProductsModel() {
     }
 
-    public ShowAllModel(String img_url, String description, String name, String rating, int price, String type) {
+    public ProductsModel(String img_url, String description, String name, String rating, int price, String type) {
         this.img_url = img_url;
         this.description = description;
         this.name = name;

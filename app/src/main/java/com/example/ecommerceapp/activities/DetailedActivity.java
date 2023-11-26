@@ -17,10 +17,9 @@ import com.bumptech.glide.Glide;
 import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.models.NewProductsModel;
 import com.example.ecommerceapp.models.PopularProductsModel;
-import com.example.ecommerceapp.models.ShowAllModel;
+import com.example.ecommerceapp.models.ProductsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,7 +56,7 @@ public class DetailedActivity extends AppCompatActivity {
 
         NewProductsModel newProductsModel = null;
         PopularProductsModel popularProductsModel = null;
-        ShowAllModel showAllModel = null;
+        ProductsModel productsModel = null;
 
         //Firestore
         firestore = FirebaseFirestore.getInstance();
@@ -66,8 +65,8 @@ public class DetailedActivity extends AppCompatActivity {
             newProductsModel = (NewProductsModel) obj;
         } else if (obj instanceof PopularProductsModel) {
             popularProductsModel = (PopularProductsModel) obj;
-        } else if (obj instanceof ShowAllModel) {
-            showAllModel = (ShowAllModel) obj;
+        } else if (obj instanceof ProductsModel) {
+            productsModel = (ProductsModel) obj;
         }
 
         if(newProductsModel != null){
@@ -90,14 +89,14 @@ public class DetailedActivity extends AppCompatActivity {
             totalPrice = popularProductsModel.getPrice() * totalQuantity;
         }
 
-        if(showAllModel != null){
-            Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(detailedImg);
-            name.setText(showAllModel.getName());
-            description.setText(showAllModel.getDescription());
-            rating.setText(showAllModel.getRating());
-            price.setText(String.valueOf(showAllModel.getPrice()));
-            star.setRating(Float.valueOf(showAllModel.getRating()));
-            totalPrice = showAllModel.getPrice() * totalQuantity;
+        if(productsModel != null){
+            Glide.with(getApplicationContext()).load(productsModel.getImg_url()).into(detailedImg);
+            name.setText(productsModel.getName());
+            description.setText(productsModel.getDescription());
+            rating.setText(productsModel.getRating());
+            price.setText(String.valueOf(productsModel.getPrice()));
+            star.setRating(Float.valueOf(productsModel.getRating()));
+            totalPrice = productsModel.getPrice() * totalQuantity;
         }
 
         //Add to card
@@ -111,7 +110,7 @@ public class DetailedActivity extends AppCompatActivity {
         //Buy now
         NewProductsModel finalNewProductsModel1 = newProductsModel;
         PopularProductsModel finalPopularProductsModel1 = popularProductsModel;
-        ShowAllModel finalShowAllModel1 = showAllModel;
+        ProductsModel finalProductsModel1 = productsModel;
         buy_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,8 +122,8 @@ public class DetailedActivity extends AppCompatActivity {
                 if(finalPopularProductsModel1 != null){
                     intent.putExtra("item", finalPopularProductsModel1);
                 }
-                if(finalShowAllModel1 != null){
-                    intent.putExtra("item", finalShowAllModel1);
+                if(finalProductsModel1 != null){
+                    intent.putExtra("item", finalProductsModel1);
                 }
                 startActivity(intent);
             }
@@ -132,7 +131,7 @@ public class DetailedActivity extends AppCompatActivity {
 
         NewProductsModel finalNewProductsModel = newProductsModel;
         PopularProductsModel finalPopularProductsModel = popularProductsModel;
-        ShowAllModel finalShowAllModel = showAllModel;
+        ProductsModel finalProductsModel = productsModel;
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,8 +144,8 @@ public class DetailedActivity extends AppCompatActivity {
                     if(finalPopularProductsModel != null){
                         totalPrice = finalPopularProductsModel.getPrice() * totalQuantity;
                     }
-                    if(finalShowAllModel != null){
-                        totalPrice = finalShowAllModel.getPrice() * totalQuantity;
+                    if(finalProductsModel != null){
+                        totalPrice = finalProductsModel.getPrice() * totalQuantity;
                     }
                 }
             }
@@ -179,7 +178,7 @@ public class DetailedActivity extends AppCompatActivity {
         cartMap.put("totalQuantity", quantity.getText().toString());
         cartMap.put("totalPrice", totalPrice);
 
-        firestore.collection("AddToCard").document(auth.getCurrentUser().getUid())
+        firestore.collection("MyCart").document(auth.getCurrentUser().getUid())
                 .collection("User").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {

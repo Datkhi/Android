@@ -14,10 +14,9 @@ import android.widget.Button;
 import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.adapters.AddressAdapter;
 import com.example.ecommerceapp.models.AddressModel;
-import com.example.ecommerceapp.models.MyCartModel;
 import com.example.ecommerceapp.models.NewProductsModel;
 import com.example.ecommerceapp.models.PopularProductsModel;
-import com.example.ecommerceapp.models.ShowAllModel;
+import com.example.ecommerceapp.models.ProductsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,20 +93,29 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
             public void onClick(View view) {
 //                startActivity(new Intent(AddressActivity.this, PaymentActivity.class));
                 double amount = 0.0;
+                double single_amount = 0.0;
+                //get amount from card
+                amount = getIntent().getDoubleExtra("amount", 0.0);
+
+                //Buy single product without using cart
                 if(obj instanceof NewProductsModel){
                     NewProductsModel newProductsModel = (NewProductsModel) obj;
-                    amount = newProductsModel.getPrice();
+                    single_amount = newProductsModel.getPrice();
                 }
                 if(obj instanceof PopularProductsModel){
                     PopularProductsModel popularProductsModel = (PopularProductsModel) obj;
-                    amount = popularProductsModel.getPrice();
+                    single_amount = popularProductsModel.getPrice();
                 }
-                if(obj instanceof ShowAllModel){
-                    ShowAllModel showAllModel = (ShowAllModel) obj;
-                    amount = showAllModel.getPrice();
+                if(obj instanceof ProductsModel){
+                    ProductsModel productsModel = (ProductsModel) obj;
+                    single_amount = productsModel.getPrice();
                 }
+
                 Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
-                intent.putExtra("amount", amount);
+                if(amount != 0.0)
+                    intent.putExtra("amount", amount);
+                else
+                    intent.putExtra("amount", single_amount);
                 startActivity(intent);
             }
         });

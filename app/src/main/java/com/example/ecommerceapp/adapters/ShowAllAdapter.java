@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.activities.DetailedActivity;
-import com.example.ecommerceapp.models.ShowAllModel;
+import com.example.ecommerceapp.models.ProductsModel;
 
 import java.util.List;
 
 public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHolder> {
     private Context context;
-    private List<ShowAllModel> list;
+    private List<ProductsModel> list;
 
-    public ShowAllAdapter(Context context, List<ShowAllModel> list) {
+    public ShowAllAdapter(Context context, List<ProductsModel> list) {
         this.context = context;
         this.list = list;
     }

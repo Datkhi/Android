@@ -8,6 +8,7 @@ public class NewProductsModel implements Serializable {
     String name;
     String rating;
     int price;
+    String type;
 
     public NewProductsModel() {
     }
@@ -18,6 +19,19 @@ public class NewProductsModel implements Serializable {
         this.name = name;
         this.rating = rating;
         this.price = price;
+    }
+
+    public NewProductsModel(String img_url, String description, String name, String rating, int price, String type) {
+        this.img_url = img_url;
+        this.description = description;
+        this.name = name;
+        this.rating = rating;
+        this.price = price;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getImg_url() {

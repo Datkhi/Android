@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.adapters.MyCardAdapter;
 import com.example.ecommerceapp.models.MyCartModel;
-import com.example.ecommerceapp.models.ShowAllModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     List<MyCartModel> myCartModelList;
@@ -43,7 +42,7 @@ public class CardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card);
+        setContentView(R.layout.activity_cart);
 
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -69,7 +68,7 @@ public class CardActivity extends AppCompatActivity {
         recyclerView.setAdapter(myCardAdapter);
         allAmount = findViewById(R.id.total_amount);
 
-        firestore.collection("AddToCard").document(auth.getCurrentUser().getUid())
+        firestore.collection("MyCart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -88,7 +87,8 @@ public class CardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
+//                Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
+                Intent intent = new Intent(CartActivity.this, AddressActivity.class);
                 intent.putExtra("amount", allTotalAmount);
                 startActivity(intent);
             }

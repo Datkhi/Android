@@ -28,6 +28,7 @@ import com.example.ecommerceapp.adapters.PopularProdutcsAdapter;
 import com.example.ecommerceapp.models.CategoryModel;
 import com.example.ecommerceapp.models.NewProductsModel;
 import com.example.ecommerceapp.models.PopularProductsModel;
+import com.example.ecommerceapp.models.ProductsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,8 +54,8 @@ public class HomeFragment extends Fragment {
 
     //Popular Products recyclerView
     PopularProdutcsAdapter popularProdutcsAdapter;
-    List<PopularProductsModel> popularProductsModelList;
-
+//    List<PopularProductsModel> popularProductsModelList;
+    List<ProductsModel> productsModelList;
     //Show all
     TextView catShowAll, popularShowAll, newproductShowALl;
 
@@ -146,18 +147,21 @@ public class HomeFragment extends Fragment {
 
         //Popular Products
         popularRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        popularProductsModelList = new ArrayList<>();
-        popularProdutcsAdapter = new PopularProdutcsAdapter(getContext(), popularProductsModelList);
+//        popularProductsModelList = new ArrayList<>();
+
+        productsModelList = new ArrayList<>();
+        popularProdutcsAdapter = new PopularProdutcsAdapter(getContext(), productsModelList);
         popularRecyclerView.setAdapter(popularProdutcsAdapter);
-        db.collection("AllProducts")
+        db.collection("Products")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                PopularProductsModel popularProductsModel = document.toObject(PopularProductsModel.class);
-                                popularProductsModelList.add(popularProductsModel);
+//                                PopularProductsModel popularProductsModel = document.toObject(PopularProductsModel.class);
+                                ProductsModel productsModel = document.toObject(ProductsModel.class);
+                                productsModelList.add(productsModel);
                                 popularProdutcsAdapter.notifyDataSetChanged();
                             }
                         } else {

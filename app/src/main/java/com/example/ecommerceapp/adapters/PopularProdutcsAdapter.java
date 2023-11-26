@@ -15,17 +15,23 @@ import com.bumptech.glide.Glide;
 import com.example.ecommerceapp.R;
 import com.example.ecommerceapp.activities.DetailedActivity;
 import com.example.ecommerceapp.models.PopularProductsModel;
+import com.example.ecommerceapp.models.ProductsModel;
 
 import java.util.List;
 
 public class PopularProdutcsAdapter extends RecyclerView.Adapter<PopularProdutcsAdapter.ViewHolder> {
 
     private Context context;
-    private List<PopularProductsModel> popularProductsModelList;
+//    private List<PopularProductsModel> popularProductsModelList;
+    private List<ProductsModel> productsModelList;
 
-    public PopularProdutcsAdapter(Context context, List<PopularProductsModel> popularProductsModelList) {
+//    public PopularProdutcsAdapter(Context context, List<PopularProductsModel> popularProductsModelList) {
+//        this.context = context;
+//        this.popularProductsModelList = popularProductsModelList;
+//    }
+    public PopularProdutcsAdapter(Context context, List<ProductsModel> productsModelList) {
         this.context = context;
-        this.popularProductsModelList = popularProductsModelList;
+        this.productsModelList = productsModelList;
     }
 
     @NonNull
@@ -36,15 +42,15 @@ public class PopularProdutcsAdapter extends RecyclerView.Adapter<PopularProdutcs
 
     @Override
     public void onBindViewHolder(@NonNull PopularProdutcsAdapter.ViewHolder holder, int position) {
-        Glide.with(context).load(popularProductsModelList.get(position).getImg_url()).into(holder.imageView);
-        holder.name.setText(popularProductsModelList.get(position).getName());
-        holder.price.setText(String.valueOf(popularProductsModelList.get(position).getPrice()));
+        Glide.with(context).load(productsModelList.get(position).getImg_url()).into(holder.imageView);
+        holder.name.setText(productsModelList.get(position).getName());
+        holder.price.setText(String.valueOf(productsModelList.get(position).getPrice()));
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("detailed", popularProductsModelList.get(position));
+                intent.putExtra("detailed", productsModelList.get(position));
                 context.startActivity(intent);
             }
         });
@@ -52,7 +58,7 @@ public class PopularProdutcsAdapter extends RecyclerView.Adapter<PopularProdutcs
 
     @Override
     public int getItemCount() {
-        return popularProductsModelList.size();
+        return productsModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
